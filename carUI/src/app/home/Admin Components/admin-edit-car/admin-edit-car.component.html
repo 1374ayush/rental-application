@@ -1,0 +1,81 @@
+<h2 class="ml-3">Edit Car</h2>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="container">
+      <h4>Selected Car Details :</h4>
+      <hr />
+      <table class="table table-striped shadow-sm mb-3" style="padding: 2%; border: 1px solid gray">
+        <tbody>
+          <tr>
+            <th>Car Model</th>
+            <td>{{ carData.carModel }}</td>
+          </tr>
+          <tr>
+            <th>Car Maker:</th>
+            <td>{{ carData.carMaker }}</td>
+          </tr>
+          <tr>
+            <th>Rental Price:</th>
+            <td>{{ carData.carRentalPrice }}</td>
+          </tr>
+          <tr>
+            <th>Car Maker:</th>
+            <td>{{ carData.carStatus }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button class="mb-2 btn btn-sm btn-secondary" routerLink="/admincarview" style="margin-left:1%">Back</button>
+
+  </div>
+  <div class="col-md-8">
+    <div class="container">
+      <form style="margin: 20px;" [formGroup]="editform" (ngSubmit)="editSubmitted()">
+
+        <div class="form-label" style="margin-bottom: 20px;">
+          <label for="carModel" style="display: block; font-weight: bold;">Car Model:</label>
+          <input type="text" id="carModel" class="form-control" formControlName="carModel"
+            placeholder="Enter car model">
+          <div class="form-text text-danger"
+            *ngIf="CarModel.errors?.['required'] && (CarModel.touched|| CarModel.dirty)">*car model required</div>
+          <div class="form-text text-danger" *ngIf="CarModel.errors?.['maxlength'] ">length should be in btw 2-255</div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label for="carMaker" style="display: block; font-weight: bold;">CarMaker:</label>
+          <input formControlName="carMaker" placeholder="Enter car maker" id="carMaker" name="carMaker" rows="4"
+            style="width: 100%; padding: 5px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" />
+          <div class="form-text text-danger"
+            *ngIf="CarMaker.errors?.['required'] && (CarMaker.touched || CarMaker.dirty)">*car maker required</div>
+          <div class="form-text text-danger" *ngIf="CarMaker.errors?.['maxlength'] ">length should be in btw 2-255</div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 20px;">
+          <label for="price" style="display: block; font-weight: bold;">Car Rental Price:</label>
+          <input formControlName="carRentalPrice" placeholder="Enter Price" type="number" id="price" name="price"
+            required
+            style="width: 100%; padding: 5px; font-size: 16px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;">
+          <div class="form-text text-danger"
+            *ngIf="CarRentalPrice.errors?.['required'] && (CarRentalPrice.touched || CarRentalPrice.dirty)">*price
+            required</div>
+          <div class="form-text text-danger" *ngIf="CarRentalPrice.errors?.['max'] ">* value must be bleow 100000</div>
+        </div>
+
+        <!-- <div class="m-1"><b>Availability Status</b></div>
+        <div class="form-check form-check-inline"> <input type="radio" name ="status" class="form-check-input" value=true
+                id="true" formControlName="status">
+            <label class="form-check-label" for="male">Available</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="radio" class="form-check-input mb-3" value=false name="status" id="false" formControlName="status"> <label class="form-check-label"
+                for="notAvailable">Not Available</label>
+        </div>
+        <div class="form-text text-danger" *ngIf="CarStatus.errors?.['required'] && (CarStatus.touched || CarStatus.dirty)">*Availability Status required</div>
+        <br> -->
+        <input type="submit" [disabled]="editform.invalid" value="Edit" class="btn btn-primary">
+      </form>
+    </div>
+
+  </div>
+</div>

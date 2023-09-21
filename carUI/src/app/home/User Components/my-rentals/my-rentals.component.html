@@ -1,0 +1,21 @@
+
+<div class="container">
+    <div class="row">
+        <div *ngFor="let item of rentalData" class="col-md-4 mb-3 " >
+            <div class="card shadow bg-body-tertiary rounded" style="border:2px solid green">
+                <div class="card-body ">
+                  <h5 class="card-title">{{item.carModel}}</h5>
+                  <h6 class="card-subtitle mb-2 text-body-secondary"> <b>Maker:</b> <i>{{item.carMaker}}</i> </h6>
+                  <h6>Car Rented on : <b>{{item.returned}}</b></h6>
+                  <p class="card-text">Amount paid: <b>{{item.totalCost}} Rupees</b> for <b>{{item.duration}} </b>days car rent.</p>
+                  <h5 *ngIf="!item.userRequest" style="color:red">Still on rent</h5>
+                  <button  class="btn btn-sm btn-success" *ngIf="!item.userRequest" (click)="returnRequest(item.carId)">Request Return </button>
+                  <button [disabled]="true" class="btn btn-sm btn-danger" *ngIf="item.userRequest">Return Request Initiated </button>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="noData()" class="container" style="margin:10% 0 0 30%">
+  <h1 style="color:rgba(128, 128, 128, 0.425)">No Data for your search ???</h1>
+</div>

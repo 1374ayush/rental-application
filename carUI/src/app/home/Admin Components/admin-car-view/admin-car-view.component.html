@@ -1,0 +1,61 @@
+<div>
+  <button class="mb-2 btn btn-sm btn-secondary" routerLink="/admin" style="margin-left: 1%">
+    Back
+  </button>
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-6">
+        <button class="mb-2 btn btn-primary" routerLink="/addcar" style="margin-right: 2em">
+          Add New Car
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngFor="let item of carData" class="col-md-4 mb-3">
+        <div class="card shadow bg-body-tertiary rounded" style="border: 3px solid teal">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.carModel }}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">
+              <b>Maker:</b> <i>{{ item.carMaker }}</i>
+            </h6>
+            <p class="card-text">
+              <b>Rental Price/day :</b> <i> {{ item.carRentalPrice }}</i>.
+            </p>
+            <a routerLink="/editcar/{{ item.id }}" class="btn btn-sm btn-success" style="margin-right: 2em">Edit</a>
+            <button class="btn btn-danger" (click)="deleteCar(item.id)">
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="noData()" class="container" style="margin:10% 0 0 30%">
+      <h1 style="color:rgba(128, 128, 128, 0.425)">Data not found ???</h1>
+    </div>
+
+    <hr />
+    <h2 style="color: red">Rented Cars !!!</h2>
+    <div class="row">
+      <div *ngFor="let item of rentedCarData" class="col-md-4 mb-3">
+        <div class="card shadow bg-body-tertiary rounded" style="border: 3px solid red">
+          <div class="card-body">
+            <h5 class="card-title">{{ item.carModel }}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">
+              <b>Maker:</b> <i>{{ item.carMaker }}</i>
+            </h6>
+            <p class="card-text">
+              <b>Rental Price/day :</b> <i> {{ item.carRentalPrice }}</i>.
+            </p>
+            <h6 style="color:red">*rented cars cannot be edited</h6>
+            <button [disabled]="true" class="btn btn-sm btn-danger">
+              Rented !!
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="noRentedData()" class="container mb-3" style="margin:6% 0 0 30%">
+  <h1 style="color:rgba(128, 128, 128, 0.425)">Data not found ???</h1>
+</div>

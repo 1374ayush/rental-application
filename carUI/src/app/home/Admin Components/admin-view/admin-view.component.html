@@ -1,0 +1,33 @@
+
+<div class="container">
+  <div class="row mb-3">
+    <div class="col-6">
+      <button class="mb-2 btn btn-primary" routerLink="/addcar" style="margin-right:2em">Add New Car</button>
+      <button class="mb-2 btn btn-danger" routerLink="/admincarview" style="margin-right:2em"> Edit / Delete Car</button>
+    </div>
+  </div>
+  <h2>All Agreements:</h2>
+  <hr>
+    <div class="row">
+        <div *ngFor="let item of data" class="col-md-4 mb-2 " >
+            <div class="card shadow bg-body-tertiary rounded" style=" border:3px solid black">
+                <div class="card-body ">
+                  <h5 class="card-title">{{item.carModel}}</h5>
+                  <h6 class="card-subtitle mb-2 text-body-secondary"> <b>Maker:</b> <i>{{item.carMaker}}</i> </h6>
+                  <h6>Car Rented on: <b>{{item.returned}}</b></h6>
+                  <p class="card-text">Car Rented for: <b>{{item.duration}} days</b> </p>
+                  <h6 class="card-text">Amount Paid: <b>{{item.totalCost}} Rupees</b> </h6>
+                <h6 class="card-text">User: <b><i>{{item.email}}</i></b> </h6>
+                <h4 *ngIf="!item.userRequest" class="mb-1 mt-1" style="color: red;">*still on rent</h4>
+                  <h4 *ngIf="item.userRequest" class="mb-1 mt-1" style="background-color: red; color:white;padding:2px">User Requested for Return</h4>
+                  <button class="btn btn-sm btn-primary" style="margin-right: 2px;" routerLink="/edit/{{item.carId}}">Edit</button>
+                  <button class="btn btn-sm btn-primary" style="margin-right: 2px;" (click)="deleteButton(item.carId)">Delete</button>
+                  <button [disabled]="!item.userRequest" class="btn btn-sm btn-danger" (click)="returnButton(item.carId)">Mark Return</button>
+                </div>
+              </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="noData()" class="container" style="margin:10% 0 0 30%">
+  <h1 style="color:rgba(128, 128, 128, 0.425)">No Data for your search ???</h1>
+</div>

@@ -1,0 +1,87 @@
+<div class="container mb-3">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4>Car Details :</h4>
+                    <hr />
+                    <table class="table table-striped shadow-sm mb-4" style="padding: 2%; border: 1px solid gray">
+                        <tbody>
+                            <tr>
+                                <th>Car Model:</th>
+                                <td>{{ data.carModel }}</td>
+                            </tr>
+                            <tr>
+                                <th>Car Maker:</th>
+                                <td>{{ data.carMaker }}</td>
+                            </tr>
+                            <tr>
+                                <th>Car Rental Price:</th>
+                                <td>{{ data.totalCost/data.duration}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                     <h4>Selected Agreement Details :</h4>
+                    <hr />
+                    <table class="table table-striped shadow-sm mb-3" style="padding: 2%; border: 1px solid gray">
+                        <tbody>
+                            <tr>
+                                <th>Days</th>
+                                <td>{{ data.duration }}</td>
+                            </tr>
+                            <tr>
+                                <th>Total Cost:</th>
+                                <td>{{ data.totalCost }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4"></div>
+            </div>
+            <button class="mb-2 btn btn-sm btn-secondary" routerLink="/admin" style="margin-left:1%">Back</button>
+        </div>
+        <div class="col-md-6 shadow-sm" >
+            <div class="row" style="border: 1px solid gray">
+                <div class="col-12">
+                    <h2>Agreement Edit Form :</h2>
+                    <hr />
+                    <form [formGroup]="Dayform" (ngSubmit)="DaySubmitted()">
+                        <h5>
+                            Car rented on:<b>{{ data.returned }}</b>
+                        </h5>
+                        <h5 style="color:rgb(18, 18, 99);">User Details : <b><i>{{data.email}}</i></b></h5>
+        
+                        <br />
+                        <div>
+                            <label for="">Enter number of days :</label>
+                            <input type="number" class="form-control mb-1" formControlName="days" />
+                            <div class="form-text text-danger"
+                                *ngIf="Days.errors?.['required'] && (Days.touched || Days.dirty)">
+                                *days required
+                            </div>
+                            <div class="form-text text-danger" *ngIf="Days.errors?.['max'] || Days.errors?.['min']">
+                                *value should be above 1 and below 100
+                            </div>
+                            <button class="btn btn-sm btn-primary mb-4" [disabled]="Dayform.invalid">
+                                Calculate Cost
+                            </button>
+                        </div>
+                
+                        <div class="mb-3" style="width:70%" >
+                            <h5 >Agreement Detail :</h5>
+                            <hr />
+                            <h6>Car rent Duration : <b>{{days}}</b> days.</h6>
+                            <h6>Car per-day rent : <b>{{data.totalCost/data.duration}}</b> INR</h6>
+                            <h5>Total Cost : {{totalCost}} INR</h5>
+                        </div>
+                        
+                        <button class="btn btn-success mb-2" [disabled]="accept" (click)="acceptButton()">
+                            Edit Agreement !
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
